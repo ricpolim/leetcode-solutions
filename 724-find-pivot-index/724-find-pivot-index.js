@@ -3,21 +3,19 @@
  * @return {number}
  */
 var pivotIndex = function(nums) {
+    let leftSum = 0;
+    let rightSum = nums.reduce(
+            (previousValue, currentValue) => previousValue + currentValue,
+            0);
     
     for (let i = 0; i < nums.length; i++) {
-        let leftSubArray = nums.slice(0, i);
-        let rightSubArray = nums.slice(i+1, nums.length);
-        
-        let leftSum = leftSubArray.reduce(
-            (previousValue, currentValue) => previousValue + currentValue,
-            0);
-        let rightSum = rightSubArray.reduce(
-            (previousValue, currentValue) => previousValue + currentValue,
-            0);
+        rightSum -= nums[i];
         
         if (leftSum === rightSum) {
             return i;
         }
+        
+        leftSum += nums[i];
     }
     
     return -1;
